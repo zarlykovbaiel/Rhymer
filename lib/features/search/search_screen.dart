@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:rhymerr/features/home/home_screen.dart';
+import 'package:rhymerr/ui/widgets/rhyme_history_card.dart';
+import 'package:rhymerr/features/search/widgets/search_buttom.dart';
+import 'package:rhymerr/ui/widgets/rhyme_list_card.dart';
 
 @RoutePage()
 class SearchScreen extends StatelessWidget {
@@ -41,7 +43,9 @@ class SearchScreen extends StatelessWidget {
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 16)),
         SliverList.builder(
-            itemBuilder: ((context, index) => const RhymeListCard())),
+            itemBuilder: ((context, index) => RhymeListCard(
+                  rhyme: "Rhymer",
+                ))),
       ],
     );
   }
