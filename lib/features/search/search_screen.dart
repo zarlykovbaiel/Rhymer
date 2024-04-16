@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:rhymerr/ui/widgets/rhyme_history_card.dart';
 import 'package:rhymerr/features/search/widgets/search_buttom.dart';
+import 'package:rhymerr/features/search/widgets/search_rhymes_bottom_sheet.dart';
+import 'package:rhymerr/ui/widgets/rhyme_history_card.dart';
 import 'package:rhymerr/ui/widgets/rhyme_list_card.dart';
 
 @RoutePage()
@@ -12,16 +13,23 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return CustomScrollView(
       slivers: [
-        const SliverAppBar(
+        SliverAppBar(
           pinned: true,
           snap: true,
           floating: true,
-          title: Text("Rhymer"),
+          title: const Text("Rhymer"),
           surfaceTintColor: Colors.transparent,
           bottom: PreferredSize(
-              preferredSize: Size.fromHeight(70), child: SearchButton()),
+            preferredSize: const Size.fromHeight(70),
+            child: SearchButton(
+              onTap: () {
+                _searchShowBottomSheet(context);
+              },
+            ),
+          ),
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 16)),
         SliverToBoxAdapter(
@@ -43,10 +51,23 @@ class SearchScreen extends StatelessWidget {
         ),
         const SliverToBoxAdapter(child: SizedBox(height: 16)),
         SliverList.builder(
-            itemBuilder: ((context, index) => RhymeListCard(
+            itemBuilder: ((context, index) => const RhymeListCard(
                   rhyme: "Rhymer",
                 ))),
       ],
+    );
+  }
+
+  void _searchShowBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      context: context,
+      builder: (context) => const Padding(
+        padding: EdgeInsets.only(top: 60.0),
+        child: SearchRhymesBottomSheet(),
+      ),
     );
   }
 }
